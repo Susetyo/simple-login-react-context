@@ -7,6 +7,13 @@ const Login = (props:any) => {
   const { onLogin } = React.useContext(TextContext);  
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+
+  let submit = () =>{
+    if(onLogin){
+      onLogin(username,password)
+      props.history.push('/profile') 
+    }
+  }
   
   return (
     <div className={classes.container}>
@@ -14,23 +21,16 @@ const Login = (props:any) => {
         <h1 style={{marginTop:'0'}}>Login</h1>
         <form>
           <div className={classes.formController}>
-            <label>Username</label>
-            <input value={username} onChange={(e) => {
+            <div>Username</div>
+            <input className={classes.labelController} value={username} onChange={(e) => {
               setUsername(e.target.value)
             }}/>
           </div>
           <div className={classes.formController}>
-            <label>Password</label>
-            <input value={password} onChange={(e) => {
-              setPassword(e.target.value)
-            }}/>
+            <div>Password</div>
+            <input className={classes.labelController} value={password} onChange={(e) => { setPassword(e.target.value)}}/>
           </div>
-          <button className={classes.myButton} onClick={()=>{ 
-            if(onLogin){
-              onLogin(username,password)
-              props.history.push('/profile') 
-            }
-          }}>Submit</button>
+          <button className={classes.myButton} onClick={submit}>Submit</button>
         </form>
       </div>
     </div>
